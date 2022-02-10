@@ -1,14 +1,25 @@
 require 'openssl'
 
 class User < ApplicationRecord
+  MAX_LENGTH = 40
+  EMAIL_REGEX = URI::MailTo::EMAIL_REGEXP
+  USERNAME_REGEX = /\A[a-zA-Z0-9_]+\z/
   #параметры работы модуля шифрования паролей
   ITERATIONS = 20000
   DIGEST = OpenSSL::Digest::SHA256.new
 
   has_many :questions
 
-  validates :email, :username, presence: true
-  validates :email, :username, uniqueness: true
+  validates :email,
+            presence: true,
+            uniqueness: true,
+            format: { with: EMAIL_REGEX }
+
+  validates :username,
+            presence: true,
+            uniqueness: true,
+            length: { maximum: MAX_LENGTH },
+            format: { with: USERNAME_REGEX }
 
   attr_accessor :password
 
