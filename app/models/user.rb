@@ -10,6 +10,8 @@ class User < ApplicationRecord
 
   has_many :questions
 
+  before_validation :normalize_name, on: :create
+
   validates :email,
             presence: true,
             uniqueness: true,
@@ -51,4 +53,9 @@ class User < ApplicationRecord
       nil
     end
   end
+
+  private
+    def normalize_name
+      self.username = username.downcase
+    end
 end

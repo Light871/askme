@@ -4,5 +4,5 @@ class Question < ApplicationRecord
   belongs_to :user
 
   validates :text, :user, presence: true
-  validates :text, length: { MAX_LENGTH }
+  validates :text, length: { maximum: MAX_LENGTH }
 end
