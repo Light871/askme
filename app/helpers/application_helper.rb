@@ -7,7 +7,7 @@ module ApplicationHelper
     end
   end
 
-  def sklon(word, quantity)
+  def sklon_noun(word, quantity)
     last_digit = quantity.to_s.split('').last.to_i
 
     if quantity > 10
@@ -17,13 +17,23 @@ module ApplicationHelper
     end
 
     if last_digit_11_14 > 10 && last_digit_11_14 < 15
-      "#{quantity} #{word[2]}"
+      "#{word[2]}"
     elsif last_digit == 1
-      "#{quantity} #{word[0]}"
+      "#{word[0]}"
     elsif last_digit > 1 && last_digit < 5
-      "#{quantity} #{word[1]}"
+      "#{word[1]}"
     else
-      "#{quantity} #{word[2]}"
+      "#{word[2]}"
+    end
+  end
+
+  def sklon_adj(word, quantity)
+    last_digit = quantity % 10
+
+    if last_digit == 1
+      "#{word[0]}"
+    else
+      "#{word[1]}"
     end
   end
 
